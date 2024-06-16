@@ -25,6 +25,21 @@ public class Author {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Book> books;
 
+    public Author() {
+    }
+
+    public Author(DataAuthor a) {
+        this.name = a.name();
+        this.birth_year = a.birth();
+        this.death_year = a.death();
+    }
+
+    @Override
+    public String toString() {
+        return "Author [id=" + id + ", name=" + name + ", birth_year=" + birth_year + ", death_year=" + death_year
+                + ", books=" + books + "]";
+    }
+
 }
 
 /*
