@@ -34,10 +34,50 @@ public class Author {
         this.death_year = a.death();
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getBirth_year() {
+        return birth_year;
+    }
+
+    public void setBirth_year(Integer birth_year) {
+        this.birth_year = birth_year;
+    }
+
+    public Integer getDeath_year() {
+        return death_year;
+    }
+
+    public void setDeath_year(Integer death_year) {
+        this.death_year = death_year;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
-        return "Author [id=" + id + ", name=" + name + ", birth_year=" + birth_year + ", death_year=" + death_year
-                + ", books=" + books + "]";
+        return "Author [name=" + name + ", birth_year=" + birth_year + ", death_year=" + death_year
+                + "]";
     }
 
 }
