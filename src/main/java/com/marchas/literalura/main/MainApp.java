@@ -2,15 +2,14 @@ package com.marchas.literalura.main;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.marchas.literalura.model.Author;
 import com.marchas.literalura.model.Book;
-import com.marchas.literalura.model.DataBook;
+//import com.marchas.literalura.model.DataBook;
 import com.marchas.literalura.model.DataQuery;
 import com.marchas.literalura.repository.BookRepository;
 import com.marchas.literalura.service.DataConverter;
@@ -21,7 +20,7 @@ public class MainApp {
     private QueryAPI queryAPI = new QueryAPI();
     private final String URL_BASE = "https://gutendex.com/books/";
     private DataConverter converter = new DataConverter();
-    private List<DataBook> dataBooks = new ArrayList<>();
+    //private List<DataBook> dataBooks = new ArrayList<>();
     private BookRepository repository;
     private List<Book> books;
     private List<Author> authors;
@@ -149,35 +148,36 @@ public class MainApp {
     }
 
     private void getSavedAuthorsByYear() {
-        var fecha = 1880;
+        System.out.print("\n\nPor favor escribe el año.\n └──>");
 
-        authors = repository.findAuthors();
+        try {
+            Integer fecha = input.nextInt();
+            input.nextLine();
 
-        authors.stream()
-                .filter(a -> a.getBirth_year() < fecha && a.getDeath_year() > fecha)
-                .forEach(System.out::println);
+            if (fecha >= 2024 || fecha < 1300) {
+                return;
+            }
+
+            authors = repository.findAuthors();
+
+            authors.stream()
+                    .filter(a -> a.getBirth_year() < fecha && a.getDeath_year() > fecha)
+                    .forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Ocurrio un error con la fecha");;
+        }
+
     }
 
     private void getBooksByLang() {
-        System.out.print("\n\nPor favor escribe el nombre del libro que deseas buscar.\n └──>");
+        System.out.print("\n\nPor favor escribe el idioma [es, en, br, it].\n └──>");
         var tittleBook = input.nextLine();
 
-        String json = queryAPI.getData(URL_BASE + "?search=" + URLEncoder.encode(tittleBook,
-                StandardCharsets.UTF_8));
-        var data = converter.getData(json, DataQuery.class);
+        books = repository.findAll();
 
-        System.out.println(data);
-
-        /*
-         * List<Book> queryBooks = data.books().stream()
-         * .filter(b ->
-         * b.title().toLowerCase().contains(tittleBook.toLowerCase())).map(b -> new
-         * Book(b))
-         * .collect(Collectors.toList());
-         * 
-         * queryBooks.stream().limit(10)
-         * .forEach(System.out::println);
-         */
+        books.stream()
+                .filter(b -> b.getLanguages().contains(tittleBook))
+                .forEach(System.out::println);
     }
 
     private void cleanScreen() {
