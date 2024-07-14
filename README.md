@@ -7,6 +7,9 @@ Tenemos un periodo de tiempo de dos semanas para desarrollar el proyecto **(del 
 Desarrollaremos una aplicación java por terminal.
 
 ## Requisitos 
+### API externa
+Utilizamos [gutendex](https://gutendex.com/) como api externa para extraer los datos de los libros y asi almacenarlos en nuestra base de datos de postgres local. toda la documentacion en dicha pagina.
+
 ### Base de datos
 
 La aplicación contará con una base de datos en mysql local con 2 tablas diferentes conectadas.
